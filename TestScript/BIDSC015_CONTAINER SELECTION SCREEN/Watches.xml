@@ -1,0 +1,7 @@
+﻿<Properties>
+  <WatchEntry0 value="blnFound" />
+  <WatchEntry1 value="strText" />
+  <WatchEntry2 value="VerifyScreenHeader(&quot;CONTAINER SELECTION SCREEN&quot;)" />
+  <WatchEntry3 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC015_ContainerSelectionScreen&quot;).TeField(&quot;StatusMsg&quot;).Exist(2)" />
+  <WatchEntry4 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC015_ContainerSelectionScreen&quot;).TeField(&quot;StatusMsg&quot;).GetROProperty(&quot;text&quot;)" />
+</Properties>

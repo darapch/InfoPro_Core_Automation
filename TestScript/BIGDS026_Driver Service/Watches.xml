@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="intQty" />
+  <WatchEntry1 value="objQtyField.Exist(1)" />
+  <WatchEntry2 value="str_key" />
+</Properties>

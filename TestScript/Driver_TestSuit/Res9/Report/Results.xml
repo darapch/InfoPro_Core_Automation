@@ -1,0 +1,700 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE Report
+[
+<!ELEMENT Report (General ,(Doc|BPT)) >
+<!ATTLIST Report ver CDATA #REQUIRED tmZone CDATA #REQUIRED>
+
+<!ELEMENT General ( DocLocation ) >
+<!ATTLIST General productName CDATA #REQUIRED productVer CDATA #REQUIRED os CDATA #REQUIRED host CDATA #REQUIRED qcserver CDATA #IMPLIED qcproject CDATA #IMPLIED SolManSolutionId CDATA #IMPLIED SolManProjectId CDATA #IMPLIED SolManTestPlanId CDATA #IMPLIED SolManTestPackageId CDATA #IMPLIED SolManUserInfoData CDATA #IMPLIED  >
+
+<!ELEMENT BPT (DName,Res,DVer?,TSet?,TInst?,NodeArgs,AdditionalInfo*,Doc*) >
+<!ATTLIST BPT rID ID #REQUIRED >
+
+<!ELEMENT Doc (DName,ConfName?,Res,DVer?,TSet?,TInst?,RunType?,DT?,AdditionalInfo*,Step*,DIter*,Step*,Action*,Doc*,Summary?,TestMaintenanceSummary*,NodeArgs?) >
+<!ATTLIST Doc rID ID #REQUIRED type (Test|BC|BPTWrapperTest|Flow|Group|Action) "Test" productName CDATA #REQUIRED BCIter CDATA #IMPLIED >
+
+<!ELEMENT RunType ( #PCDATA )>
+<!ATTLIST RunType fmStep (False|True) "False" batch (False|True) "False" upDesc (False|True) "False" upChk (False|True) "False" upAS (False|True) "False">
+
+<!ELEMENT DName ( #PCDATA ) >
+
+<!ELEMENT ConfName ( #PCDATA ) >
+
+<!ELEMENT Res ( #PCDATA ) >
+
+<!ELEMENT AdditionalInfo (AdditionalDataName,AdditionalDataValue ) >
+
+<!ELEMENT AdditionalDataName ( #PCDATA ) >
+
+<!ELEMENT AdditionalDataValue ( #PCDATA ) >
+
+<!ELEMENT DVer ( #PCDATA ) >
+
+<!ELEMENT TSet ( #PCDATA ) >
+
+<!ELEMENT TInst ( #PCDATA ) >
+
+<!ELEMENT DIter (Step*,Action+,Summary?,NodeArgs)>
+<!ATTLIST DIter rID ID #REQUIRED iterID CDATA #REQUIRED>
+
+<!ELEMENT DocLocation ( #PCDATA )>
+
+<!ELEMENT Action (AName,AIter*,(Step|HtmlStep|Action)*, Summary,ActionMaintenanceSummary*, NodeArgs ) >
+<!ATTLIST Action rID ID #REQUIRED>
+
+<!ELEMENT AIter ((Step|HtmlStep|Action)*,DataMapping?, Summary?,NodeArgs) >
+<!ATTLIST AIter rID ID #REQUIRED iterID CDATA #REQUIRED isCountable (False|True) "False" >
+
+<!ELEMENT AName ( #PCDATA ) >
+
+<!ELEMENT TestMaintenanceSummary (ActionMaintenanceSummary*) >
+<!ATTLIST TestMaintenanceSummary ObjectsAdded CDATA #REQUIRED ObjectsUpdated CDATA #REQUIRED StepsUpdated CDATA #REQUIRED StepsComments CDATA #REQUIRED><!ELEMENT ActionMaintenanceSummary (ObjectChange* ) >
+<!ATTLIST ActionMaintenanceSummary Action CDATA #REQUIRED Objects CDATA #REQUIRED Updated CDATA #REQUIRED LinesTotal CDATA #REQUIRED Added CDATA #REQUIRED LinesUpdated CDATA #REQUIRED>
+
+<!ELEMENT ObjectChange  (Hierarchy, PropertyChangeList* ) >
+<!ATTLIST ObjectChange Operation CDATA #IMPLIED OriginalRepository CDATA #IMPLIED>
+
+<!ELEMENT PropertyChangeList (PropertyDef*) >
+
+<!ELEMENT PropertyDef (OriginalValue, NewValue) >
+<!ATTLIST PropertyDef PropName CDATA #REQUIRED OriginRegularExpression (True|False) "False" NewRegularExpression (True|False) "False" AddedProperty (True|False) "False" >
+
+<!ELEMENT OriginalValue ( #PCDATA )>
+
+<!ELEMENT NewValue ( #PCDATA )>
+
+<!ELEMENT Hierarchy  (ObjectName, Hierarchy*) >
+<!ATTLIST Hierarchy MicClass CDATA #REQUIRED>
+
+<!ELEMENT ObjectName  ( #PCDATA ) >
+
+<!ELEMENT Step (Obj,Details,Time,TimeTick* ,(Step|HtmlStep|Doc)*, DataMapping?, NodeArgs) >
+<!ATTLIST Step rID ID #REQUIRED retval CDATA #IMPLIED>
+
+<!ELEMENT HtmlStep (HTML,TimeTick*,(Step|HtmlStep|Doc)*,NodeArgs) >
+<!ATTLIST HtmlStep rID ID #REQUIRED >
+
+<!ELEMENT Obj ( #PCDATA ) >
+<!ATTLIST Obj plainTxt (False|True) "True">
+
+<!ELEMENT Details ( #PCDATA ) >
+<!ATTLIST Details plainTxt (False|True) "True">
+
+<!ELEMENT Time ( #PCDATA ) >
+
+<!ELEMENT HTML ( #PCDATA ) >
+
+<!ELEMENT Disp ( #PCDATA ) >
+
+<!ELEMENT TimeTick ( #PCDATA ) >
+
+<!ELEMENT DataMapping ( DataMappedItem* )>
+<!ELEMENT DataMappedItem EMPTY >
+<!ATTLIST DataMappedItem dsName CDATA #REQUIRED >
+<!ATTLIST DataMappedItem rowId CDATA #REQUIRED >
+
+<!ELEMENT NodeArgs (Disp,TopPane?,BtmPane?,ExtendedInfo? )>
+<!ATTLIST NodeArgs eType CDATA #REQUIRED icon CDATA #REQUIRED nRep CDATA #REQUIRED UserNote CDATA #IMPLIED filter (False|True) "True">
+<!ATTLIST NodeArgs status (Passed|Failed|Done|Warning|Information) "Done">
+<!ATTLIST NodeArgs iconSel CDATA #IMPLIED nType CDATA #IMPLIED MovieMarker CDATA "">
+<!ATTLIST NodeArgs Source CDATA #IMPLIED SourceLine CDATA #IMPLIED StepFlowItemKey CDATA #IMPLIED >
+
+<!ELEMENT TopPane (Path)>
+
+<!ELEMENT BtmPane ( (Path|WR)?,ASHilite?)>
+<!ATTLIST BtmPane vType CDATA "HTML">
+
+<!ELEMENT Path ( #PCDATA ) >
+
+<!ELEMENT ASHilite ( #PCDATA ) >
+
+<!ELEMENT WR ( #PCDATA ) >
+
+<!ELEMENT ExtendedInfo ( StepData ) >
+
+<!ATTLIST ExtendedInfo StepType CDATA #REQUIRED>
+<!ELEMENT DT (NodeArgs) >
+<!ATTLIST DT rID ID #REQUIRED>
+
+<!ELEMENT Summary (Param*)>
+<!ATTLIST Summary sTime CDATA #IMPLIED eTime CDATA #IMPLIED passed CDATA #IMPLIED failed CDATA #IMPLIED warnings CDATA #IMPLIED retval CDATA #IMPLIED stopped (False|True) "False" >
+
+<!ELEMENT Param (ParamName,ParamVal)+ >
+<!ATTLIST Param paramInOut (In|Out) "In">
+
+<!ELEMENT ParamName ( #PCDATA ) >
+
+<!ELEMENT ParamVal ( #PCDATA ) >
+
+]
+>
+<Report ver="2.0" tmZone="India Standard Time">
+<General productName="HP Unified Functional Testing" productVer="12.53" os="Windows 7" host="PBNHMRY"><DocLocation><![CDATA[C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\TestScript\Driver_TestSuit]]></DocLocation></General>
+<Doc rID="T1"   productName= "HP Unified Functional Testing"  >
+<DName><![CDATA[Driver_TestSuit]]></DName>
+<Res><![CDATA[Res9]]></Res>
+<DT rID="T2">
+<NodeArgs eType="Table" icon="2" nRep="4" filter="False" >
+<Disp><![CDATA[Run-Time Data Table]]></Disp>
+<BtmPane vType="Table" >
+<Path><![CDATA[Default.xls]]></Path>
+</BtmPane>
+</NodeArgs>
+</DT>
+<Action rID="T3">
+<AName><![CDATA[Action1]]></AName>
+<Step rID="T4">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:58]]></Time>
+<TimeTick>1492696078</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="7" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T5">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:58]]></Time>
+<TimeTick>1492696078</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="8" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T6">
+<Obj plainTxt="False" ><![CDATA[LoadFunctionLibrary]]></Obj>
+<Details plainTxt="False" ><![CDATA[LoadFunctionLibrary function passed]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:58]]></Time>
+<TimeTick>1492696078</TimeTick>
+<NodeArgs eType="Replay" icon="4" nRep="9" status="Passed" Source="Action1" SourceLine="-1" >
+<Disp><![CDATA[LoadFunctionLibrary]]></Disp>
+</NodeArgs>
+</Step>
+<Action rID="T7">
+<AName><![CDATA[Action1 [Driver_Repaired]]]></AName>
+<Step rID="T8">
+<Obj plainTxt="False" ><![CDATA[StartRun]]></Obj>
+<Details plainTxt="False" ><![CDATA[Transaction "StartRun" started.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:59]]></Time>
+<TimeTick>1492696079</TimeTick>
+<NodeArgs eType="Transaction" icon="6" nRep="11" nType="Start Transaction" >
+<Disp><![CDATA[StartRun]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T9">
+<Obj ><![CDATA[START RUN]]></Obj>
+<Details ><![CDATA[4/20/2017 7:17:59 PM]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:59]]></Time>
+<TimeTick>1492696079</TimeTick>
+<NodeArgs eType="User" icon="7" nRep="12" >
+<Disp><![CDATA[START RUN]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T10">
+<Obj ><![CDATA[Excel file loaded sucessfully]]></Obj>
+<Details ><![CDATA[]]></Details>
+<Time><![CDATA[4/20/2017 - 19:17:59]]></Time>
+<TimeTick>1492696079</TimeTick>
+<NodeArgs eType="User" icon="7" nRep="13" status="Passed" >
+<Disp><![CDATA[Excel file loaded sucessfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T11">
+<Obj ><![CDATA[Infopro Application opened successfully]]></Obj>
+<Details ><![CDATA[]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:04]]></Time>
+<TimeTick>1492696084</TimeTick>
+<NodeArgs eType="User" icon="7" nRep="14" status="Passed" >
+<Disp><![CDATA[Infopro Application opened successfully]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T12">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;Configure PC5250&quot;  object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Line (76): &quot;If Dialog(&quot;Configure PC5250&quot;).Exist Then&quot;. ]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:09]]></Time>
+<TimeTick>1492696089</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="15" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T13">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;Configure PC5250&quot;  object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (32): &quot;	If Dialog(str_title).Exist(5) Then&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:09]]></Time>
+<TimeTick>1492696089</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="16" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T14">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;Configure PC5250&quot;  object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (34): &quot;			Dialog(&quot;Configure PC5250&quot;).Winedit(&quot;SystemName&quot;).Set &quot;SYS01&quot;&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:09]]></Time>
+<TimeTick>1492696089</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="17" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T15">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;System i signon&quot;  object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Line (80): &quot;If Dialog(&quot;System i signon&quot;).Exist Then&quot;. ]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:10]]></Time>
+<TimeTick>1492696090</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="18" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T16">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;System i signon&quot;  object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (32): &quot;	If Dialog(str_title).Exist(5) Then&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:12]]></Time>
+<TimeTick>1492696092</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="19" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T17">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Line (88): &quot;If TEWindow(&quot;InfoProWindow&quot;).TEScreen(&quot;Login&quot;).TEField(&quot;UserId&quot;).Exist(10) Then&quot;. ]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:12]]></Time>
+<TimeTick>1492696092</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="20" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T18">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (799): &quot;			intHwnd = TeWindow(&quot;InfoProWindow&quot;).GetROProperty(&quot;hwnd&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:12]]></Time>
+<TimeTick>1492696092</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="21" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T19">
+<Obj plainTxt="False" ><![CDATA[[ Window ].Maximize]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:32]]></Time>
+<TimeTick>1492696112</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="24" status="Warning" >
+<Disp><![CDATA[[ Window ].Maximize]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T20">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot&nbsp;identify&nbsp;the&nbsp;object&nbsp;"[&nbsp;Window&nbsp;]"&nbsp;(of&nbsp;class&nbsp;Window).<br/>Verify&nbsp;that&nbsp;this&nbsp;object's&nbsp;properties&nbsp;match&nbsp;an&nbsp;object&nbsp;currently&nbsp;displayed&nbsp;in&nbsp;your&nbsp;application.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:32]]></Time>
+<TimeTick>1492696112</TimeTick>
+<Step rID="T21">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Object's physical description:<br>hwnd = <br>]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:32]]></Time>
+<TimeTick>1492696112</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="26" status="Warning" nType="Description" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Replay" icon="9" nRep="25" status="Failed" nType="Run Error" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T22">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot identify the object &quot;[ Window ]&quot; (of class Window).<BR/>Verify that this object's properties match an object currently displayed in your application.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (800): &quot;			Window(&quot;hwnd:=&quot; &amp; intHwnd).Maximize&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:32]]></Time>
+<TimeTick>1492696112</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="27" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+<BtmPane vType="ViewerGen.SSViewerGen" >
+<Path><![CDATA[Act2\Row0]]></Path>
+</BtmPane>
+</NodeArgs>
+</Step>
+<Step rID="T23">
+<Obj plainTxt="False" ><![CDATA[[ screen10365 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_TAB"]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:32]]></Time>
+<TimeTick>1492696112</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="29" >
+<Disp><![CDATA[[ screen10365 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T24">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (67): &quot;	If (TEWindow(&quot;InfoProWindow&quot;).TEScreen(&quot;Login&quot;).TEField(&quot;UserId&quot;).Exist(5)) Then&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="30" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T25">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (68): &quot;		If (TEWindow(&quot;InfoProWindow&quot;).TEScreen(&quot;Login&quot;).TEField(&quot;Password&quot;).Exist(5)) Then&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="31" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T26">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\ReportingFunction.qfl<BR/>Line (62): &quot;	TEWindow(&quot;InfoProWindow&quot;).TEScreen(str_screenName).TeField(Trim(strField)).Set strValue&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="32" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T27">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\ReportingFunction.qfl<BR/>Line (63): &quot;	strExpValue = TEWindow(&quot;InfoProWindow&quot;).TEScreen(str_screenName).TeField(Trim(strField)).GetROProperty(&quot;text&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="33" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T28">
+<Obj ><![CDATA[Enter UserId in the Login Screen]]></Obj>
+<Details ><![CDATA[The value 'darapch' is NOT entered into the field UserId]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="User" icon="7" nRep="34" status="Failed" >
+<Disp><![CDATA[Enter UserId in the Login Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T29">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (75): &quot;			TEWindow(&quot;InfoProWindow&quot;).TEScreen(&quot;Login&quot;).TEField(&quot;Password&quot;).Set Environment.Value(&quot;Password&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="35" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T30">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (780): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="36" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T31">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (781): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).Sync&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="37" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T32">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (783): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_BACKTAB&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="38" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T33">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (784): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey &quot;1&quot;&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:33]]></Time>
+<TimeTick>1492696113</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="39" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T34">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (787): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:35]]></Time>
+<TimeTick>1492696115</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="40" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T35">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (788): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).Sync&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:35]]></Time>
+<TimeTick>1492696115</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="41" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T36">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (790): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey &quot;1&quot;&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:35]]></Time>
+<TimeTick>1492696115</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="42" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T37">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (793): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:37]]></Time>
+<TimeTick>1492696117</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="43" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T38">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (795): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_PAGE_UP&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:37]]></Time>
+<TimeTick>1492696117</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="44" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T39">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (797): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_PAGE_DOWN&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:37]]></Time>
+<TimeTick>1492696117</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="45" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T40">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (799): &quot;			intHwnd = TeWindow(&quot;InfoProWindow&quot;).GetROProperty(&quot;hwnd&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:37]]></Time>
+<TimeTick>1492696117</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="46" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T41">
+<Obj plainTxt="False" ><![CDATA[[ Window ].Maximize]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="49" status="Warning" >
+<Disp><![CDATA[[ Window ].Maximize]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T42">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot&nbsp;identify&nbsp;the&nbsp;object&nbsp;"[&nbsp;Window&nbsp;]"&nbsp;(of&nbsp;class&nbsp;Window).<br/>Verify&nbsp;that&nbsp;this&nbsp;object's&nbsp;properties&nbsp;match&nbsp;an&nbsp;object&nbsp;currently&nbsp;displayed&nbsp;in&nbsp;your&nbsp;application.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<Step rID="T43">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Object's physical description:<br>hwnd = <br>]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="51" status="Warning" nType="Description" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Replay" icon="9" nRep="50" status="Failed" nType="Run Error" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T44">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot identify the object &quot;[ Window ]&quot; (of class Window).<BR/>Verify that this object's properties match an object currently displayed in your application.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (800): &quot;			Window(&quot;hwnd:=&quot; &amp; intHwnd).Maximize&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="52" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+<BtmPane vType="ViewerGen.SSViewerGen" >
+<Path><![CDATA[Act2\Row0]]></Path>
+</BtmPane>
+</NodeArgs>
+</Step>
+<Step rID="T45">
+<Obj plainTxt="False" ><![CDATA[[ screen10365 ].SendKey]]></Obj>
+<Details plainTxt="False" ><![CDATA["TE_TAB"]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="10" nRep="54" >
+<Disp><![CDATA[[ screen10365 ].SendKey]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T46">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\ReportingFunction.qfl<BR/>Line (62): &quot;	TEWindow(&quot;InfoProWindow&quot;).TEScreen(str_screenName).TeField(Trim(strField)).Set strValue&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="55" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T47">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\ReportingFunction.qfl<BR/>Line (63): &quot;	strExpValue = TEWindow(&quot;InfoProWindow&quot;).TEScreen(str_screenName).TeField(Trim(strField)).GetROProperty(&quot;text&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="56" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T48">
+<Obj ><![CDATA[Enter InfoPro in the Menu Screen]]></Obj>
+<Details ><![CDATA[The value '1' is NOT entered into the field InfoPro]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="User" icon="7" nRep="57" status="Failed" >
+<Disp><![CDATA[Enter InfoPro in the Menu Screen]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T49">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (780): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="58" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T50">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (781): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).Sync&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="59" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T51">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (783): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_BACKTAB&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="60" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T52">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (784): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey &quot;1&quot;&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:18:58]]></Time>
+<TimeTick>1492696138</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="61" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T53">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (787): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:00]]></Time>
+<TimeTick>1492696140</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="62" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T54">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (788): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).Sync&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:00]]></Time>
+<TimeTick>1492696140</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="63" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T55">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (790): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey &quot;1&quot;&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:00]]></Time>
+<TimeTick>1492696140</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="64" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T56">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (793): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_ENTER&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:02]]></Time>
+<TimeTick>1492696142</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="65" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T57">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (795): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_PAGE_UP&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:02]]></Time>
+<TimeTick>1492696142</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="66" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T58">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (797): &quot;			TEWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).SendKey TE_PAGE_DOWN&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:02]]></Time>
+<TimeTick>1492696142</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="67" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T59">
+<Obj plainTxt="False" ><![CDATA[Run Error]]></Obj>
+<Details plainTxt="False" ><![CDATA[The &quot;InfoProWindow&quot; TeWindow object was not found in the Object Repository.<BR/>Check the Object Repository to confirm that the object exists or to find the correct name for the object.<BR/>Function file: C:\Users\darapch\Desktop\InfoPro_Residence_Modifications\FunctionLibrary\GenericFunction.qfl<BR/>Line (799): &quot;			intHwnd = TeWindow(&quot;InfoProWindow&quot;).GetROProperty(&quot;hwnd&quot;)&quot;.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:03]]></Time>
+<TimeTick>1492696143</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="68" status="Failed" >
+<Disp><![CDATA[Run Error]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T60">
+<Obj plainTxt="False" ><![CDATA[[ Window ].Maximize]]></Obj>
+<Details plainTxt="False" ><![CDATA[]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:21]]></Time>
+<TimeTick>1492696161</TimeTick>
+<NodeArgs eType="Replay" icon="9" nRep="71" status="Warning" >
+<Disp><![CDATA[[ Window ].Maximize]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T61">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Cannot&nbsp;identify&nbsp;the&nbsp;object&nbsp;"[&nbsp;Window&nbsp;]"&nbsp;(of&nbsp;class&nbsp;Window).<br/>Verify&nbsp;that&nbsp;this&nbsp;object's&nbsp;properties&nbsp;match&nbsp;an&nbsp;object&nbsp;currently&nbsp;displayed&nbsp;in&nbsp;your&nbsp;application.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:21]]></Time>
+<TimeTick>1492696161</TimeTick>
+<Step rID="T62">
+<Obj plainTxt="False" ><![CDATA[[ Window ]]]></Obj>
+<Details plainTxt="False" ><![CDATA[Object's physical description:<br>hwnd = <br>]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:21]]></Time>
+<TimeTick>1492696161</TimeTick>
+<NodeArgs eType="Replay" icon="8" nRep="73" status="Warning" nType="Description" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<NodeArgs eType="Replay" icon="9" nRep="72" status="Failed" nType="Run Error" >
+<Disp><![CDATA[[ Window ]]]></Disp>
+</NodeArgs>
+</Step>
+<Step rID="T63">
+<Obj plainTxt="False" ><![CDATA[Stop Run]]></Obj>
+<Details plainTxt="False" ><![CDATA[Run stopped by user.]]></Details>
+<Time><![CDATA[4/20/2017 - 19:19:21]]></Time>
+<TimeTick>1492696161</TimeTick>
+<NodeArgs eType="General" icon="11" nRep="74" status="Information" >
+<Disp><![CDATA[Stop Run]]></Disp>
+</NodeArgs>
+</Step>
+<Summary sTime="4/20/2017 - 19:17:59" eTime="4/20/2017 - 19:19:21" passed="2" failed="43" warnings="6" ></Summary>
+<NodeArgs eType="StartAction" icon="5" nRep="10" status="Failed" >
+<Disp><![CDATA[Action1 [Driver_Repaired] Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="4/20/2017 - 19:17:58" eTime="4/20/2017 - 19:19:21" passed="3" failed="0" warnings="0" ></Summary>
+<NodeArgs eType="StartAction" icon="3" nRep="6" status="Failed" >
+<Disp><![CDATA[Action1 Summary]]></Disp>
+</NodeArgs>
+</Action>
+<Summary sTime="4/20/2017 - 19:17:57" eTime="4/20/2017 - 19:19:21" passed="5" failed="43" warnings="6" stopped="True" ></Summary>
+<NodeArgs eType="StartTest" icon="1" nRep="3" status="Failed" >
+<Disp><![CDATA[Test Driver_TestSuit Summary]]></Disp>
+</NodeArgs>
+</Doc>
+</Report>

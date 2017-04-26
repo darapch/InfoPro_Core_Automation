@@ -1,0 +1,3 @@
+﻿<Properties>
+  <WatchEntry0 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;Column count:=80&quot;).TeField(&quot;text:=\+&quot;,&quot;protected:=True&quot;).Exist(1)" />
+</Properties>

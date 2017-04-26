@@ -1,0 +1,4 @@
+﻿<Properties>
+  <WatchEntry0 value="Environment.Value(&quot;returncode&quot;)" />
+  <WatchEntry1 value="Environment.Value(&quot;Result&quot;)" />
+</Properties>

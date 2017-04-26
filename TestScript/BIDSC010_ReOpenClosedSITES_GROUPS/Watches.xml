@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="strGroup" />
+  <WatchEntry1 value="Environment.Value(&quot;Site&quot;)" />
+  <WatchEntry2 value="strSiteNo" />
+  <WatchEntry3 value="Environment.Value(&quot;Site&quot;)=strSiteNo and strGroup=&quot;&quot;" />
+</Properties>

@@ -1,0 +1,7 @@
+﻿<Properties>
+  <WatchEntry0 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC001_AccountInformation&quot;).TeField(&quot;Corrected Address&quot;).GetROProperty(&quot;field id&quot;)" />
+  <WatchEntry1 value="str_path" />
+  <WatchEntry2 value="str_path &amp; &quot;TestScript\BIGDS021_CustomerService&quot;" />
+  <WatchEntry3 value="str_path" />
+  <WatchEntry4 value="str_path &amp; &quot;TestScript\BIGDS021_CustomerService&quot;" />
+</Properties>

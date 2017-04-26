@@ -1,0 +1,5 @@
+﻿<Properties>
+  <WatchEntry0 value="Environment.Value(&quot;Route&quot;)" />
+  <WatchEntry1 value="intStatusFieldID" />
+  <WatchEntry2 value="Environment.Value(&quot;NavigateBackTOSelection&quot;)" />
+</Properties>

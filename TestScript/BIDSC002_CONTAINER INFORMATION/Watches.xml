@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="Environment.Value(&quot;Purpose&quot;)" />
+  <WatchEntry1 value="Environment.Value(&quot;Purpose&quot;)" />
+  <WatchEntry2 value="Err.Description" />
+  <WatchEntry3 value="Err.Description" />
+</Properties>

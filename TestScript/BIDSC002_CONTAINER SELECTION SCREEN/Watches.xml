@@ -1,0 +1,6 @@
+﻿<Properties>
+  <WatchEntry0 value="strValue" />
+  <WatchEntry1 value="intMaxFieldLength" />
+  <WatchEntry2 value="Len(strValue)" />
+  <WatchEntry3 value="Space(intSpaces) &amp; strValue" />
+</Properties>

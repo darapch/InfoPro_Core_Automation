@@ -1,0 +1,7 @@
+﻿<Properties>
+  <WatchEntry0 value="strSiteNo" />
+  <WatchEntry1 value="strSiteName" />
+  <WatchEntry2 value="intStreetFieldID" />
+  <WatchEntry3 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIGDS021_CustomerService&quot;).TeField(&quot;field id:=&quot; &amp; intStreetFieldID).GetROProperty(&quot;text&quot;)" />
+  <WatchEntry4 value="intSelFieldID" />
+</Properties>
