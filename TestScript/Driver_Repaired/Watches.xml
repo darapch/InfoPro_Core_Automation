@@ -1,5 +1,6 @@
 ﻿<Properties>
-  <WatchEntry0 value="str_key" />
-  <WatchEntry1 value="Environment.Value(&quot;SiteZIP&quot;)" />
-  <WatchEntry2 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC015_ResidentialServiceInformation&quot;).TeField(&quot;Corrected Address&quot;).GetROProperty(&quot;field id&quot;)" />
+  <WatchEntry0 value="strPwd" />
+  <WatchEntry1 value="strUID" />
+  <WatchEntry2 value="strSystem" />
+  <WatchEntry3 value="str_connectionString" />
 </Properties>

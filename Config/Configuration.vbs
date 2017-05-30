@@ -2,6 +2,7 @@
 LoadFunctionLibrary Environment.Value("RootPath") & "FunctionLibrary\GenericFunction.qfl"
 LoadFunctionLibrary Environment.Value("RootPath") & "FunctionLibrary\ReportingFunction.qfl"
 LoadFunctionLibrary Environment.Value("RootPath") & "FunctionLibrary\Result Functions.vbs"
+LoadFunctionLibrary Environment.Value("RootPath") & "FunctionLibrary\ScreenLevelFunctions.vbs"
 
 If RepositoriesCollection.Find(Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr")=-1 Then
 	RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
@@ -24,7 +25,8 @@ End If
 	Environment.Value("SecondarySelection") = ""
 	Environment.Value("StreetName") = ""
 	Environment.Value("Result") = ""
-
+	Environment.Value("Purpose") = ""
+	Environment.Value("Date") = ""
 	
 	'BIGAA001
 	Environment.Value("BIGAA001Fields") = ""
@@ -64,4 +66,6 @@ End If
 
 	Environment.Value("FetchAccDetailsFromDB")=False
 	Environment.Value("returncode") = 1
-	Environment.Value("is_batchrun") = False
+	Environment.Value("is_batchrun") = True
+	Environment.Value("URFrom")=""
+	

@@ -17,7 +17,7 @@ Environment.Value("RootPath") = Split(Environment.Value("TestDir"),"TestScript")
 ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 	
 	If Environment.Value("is_batchrun")=false Then
-		Environment.Value("CurrentTestDataSheet") = "Site Address Validation"			
+		Environment.Value("CurrentTestDataSheet") = "ResidenceSimpleFlow_B75503"			
 	End If
 	
 	arr_path = Split(Environment.Value("TestDir"), "\")
@@ -64,15 +64,18 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				Next 'For Each str_process in obj_service.InstancesOf ("Win32_Process")
 				Set obj_service = Nothing
 	
-				str_appPath = Trim(DataTable.Value("Parameter1", "Global"))
+				'str_appPath = Trim(DataTable.Value("Parameter1", "Global"))
+				str_appPath = GetFieldValueFromExcel(Environment.Value("RootPath") & "DataSheet\CommonData.xls","InfoProPath")
 				Call func_invokeapplication(str_appPath)
 				Wait(5)
 	
 			Case "LOGIN"
 '			If Environment.Value("returncode") = 1 Then
-				Environment.Value("UName") = Trim(DataTable.Value("Parameter1", "Global"))
-				Environment.Value("Password") = Trim(DataTable.Value("Parameter2", "Global"))
-				
+				'Environment.Value("UName") = Trim(DataTable.Value("Parameter1", "Global"))
+				'Environment.Value("Password") = Trim(DataTable.Value("Parameter2", "Global"))
+				Environment.Value("UName") = GetFieldValueFromExcel(Environment.Value("RootPath") & "DataSheet\CommonData.xls","Username")
+				wait(2)
+				Environment.Value("Password") = GetFieldValueFromExcel(Environment.Value("RootPath") & "DataSheet\CommonData.xls","Password")
 				If Dialog("Configure PC5250").Exist Then
 					Call func_handleLoginPopup("Configure PC5250")
 				End If 'If Dialog("Configure PC5250").Exist Then
@@ -322,6 +325,20 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					ExitAction
 				End If
 '				If Environment.Value("returncode") = 1 Then
+					If DataTable.Value("Parameter1")<>"" Then										
+						Environment.Value("AccountNumber") = Trim(DataTable.Value("Parameter1"))						
+					End If
+					
+					If DataTable.Value("Parameter2")<>"" Then										
+						Environment.Value("DivisionNumber") = Trim(DataTable.Value("Parameter2"))					
+					End If
+
+					If DataTable.Value("Parameter3")<>"" Then										
+						Environment.Value("URNumber") = Trim(DataTable.Value("Parameter3"))
+					Else
+'						Environment.Value("URNumber") = GetEnvironmentVariableValue("URNONO")
+						Environment.Value("URNumber") = GetFieldValueFromExcel(Environment.Value("RootPath") & "DataSheet\CommonData.xls","URURNO")
+					End If
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024Processed", "Action1", oneIteration
 					'RunAction "Action1 [BIGDS024PROCESSED]", oneIteration
 '				End If
@@ -332,7 +349,8 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				End If
 '				If Environment.Value("returncode") = 1 Then
 					Environment.Value("RoutingDate") = Trim(DataTable.Value("Parameter1", "Global"))
-					Environment.Value("Route") = Trim(DataTable.Value("Parameter2", "Global"))
+					Environment.Value("Route") = DataTable.Value("Parameter2", "Global")
+					Environment.Value("ServiceType") = Trim(DataTable.Value("Parameter3", "Global"))
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGRS033", "Action1", oneIteration
 					'RunAction "Action1 [BIGRS033]", oneIteration
 '				End If
@@ -372,18 +390,7 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					Environment.Value("InputFields") = Trim(DataTable.Value("Parameter1", "Global"))	
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDRS005","Action1", oneIteration
 '				End If
-			Case "BIGDS001_02" 'Added by Krishna
-				If Environment.Value("returncode") = 0 Then
-					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
-					ExitAction
-				End If
-'				If Environment.Value("returncode") = 1 Then
-					If DataTable.Value("Parameter1", "Global")<>"" Then
-						Environment.Value("Route") = Trim(DataTable.Value("Parameter1", "Global"))
-					End If
-
-					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS001_02","Action1", oneIteration
-'				End If
+			
 			Case "STDJC20_EODJOBS" 'Added by Krishna
 				If Environment.Value("returncode") = 0 Then
 					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
@@ -399,7 +406,9 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 					ExitAction
 				End If
 '				If Environment.Value("returncode") = 1 Then	
-					Environment.Value("AccountNumber") = Trim(DataTable.Value("Parameter1"))	
+					If Environment.Value("FetchAccDetailsFromDB") = False Then
+						Environment.Value("AccountNumber") = DataTable.Value("Parameter1")
+					End If
 					'msgbox str_path
 					'RunAction "Action1 [BIGDS021_CustomerService]", oneIteration
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS021_CustomerService","Action1",oneIteration
@@ -413,9 +422,16 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				End If
 '				If Environment.Value("returncode") = 1 Then	
 					Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))
-					Environment.Value("City") = Trim(DataTable.Value("Parameter1"))
-					Environment.Value("State") = Trim(DataTable.Value("Parameter2"))
+					If DataTable.Value("Parameter1")<>"" Then
+						Environment.Value("City") = Trim(DataTable.Value("Parameter1"))
+					End If
+					If DataTable.Value("Parameter2")<>"" Then
+						Environment.Value("State") = Trim(DataTable.Value("Parameter2"))
+					End If
+					
+					If DataTable.Value("Parameter3")<>"" Then
 					Environment.Value("ZIP") = Trim(DataTable.Value("Parameter3"))
+					End If
 					LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDSC001_ACCOUNT INFORMATION","Action1",oneIteration
 					'RunAction "Action1 [BIDSC001_ACCOUNT INFORMATION]", oneIteration
 '				End If
@@ -684,7 +700,171 @@ ExecuteFile Environment.Value("RootPath") & "Config\Configuration.vbs"
 				    End If
 				    Call func_GetAccountDetails(Environment.Value("AccountType"),Environment.Value("RegionCode"),Environment.Value("DivisionNumber"))
 '				End If
-			
+			Case "BIDDS000_SELECT DATE FOR DISPATCH"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+				  	Environment.Value("Date") = ""
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Format") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+				    If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("Action") = Trim(DataTable.Value("Parameter2"))				    
+				    End If
+				    
+				    Environment.Value("Status") = Trim(DataTable.Value("Parameter3"))				    
+				    
+				    
+				    If DataTable.Value("Parameter4")<>"" Then
+				    	Environment.Value("Date") = Trim(DataTable.Value("Parameter4"))				    
+				    End If
+				    LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDDS000_Select Date for Dispatch","Action1",oneIteration					
+'				End If
+			Case "BIGDS001_02"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+					'msgbox DataTable.Value("Parameter0")
+				  	If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))		    				    	
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Route") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+				   
+				    LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS001_02","Action1",oneIteration					
+'				End If
+			Case "BIGDS024_UNSCHEDULED REQUESTS"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+					'msgbox DataTable.Value("Parameter0")
+				  	If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))		    				    	
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("URFrom") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("AccountNumber") = Trim(DataTable.Value("Parameter2"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter3")<>"" Then
+				    	Environment.Value("URNumber") = Trim(DataTable.Value("Parameter3"))				    
+				    End If
+				   
+				    LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS024_UNSCHEDULED REQUESTS","Action1",oneIteration					
+'				End If
+			Case "BIGDS026_DRIVER SERVICE"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+					'msgbox DataTable.Value("Parameter0")
+				  	If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))		    				    	
+				    End If
+				    
+				    If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("Route") = Trim(DataTable.Value("Parameter1"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("DriverService") = Trim(DataTable.Value("Parameter2"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter3")<>"" Then
+				    	Environment.Value("SplitValue") = Trim(DataTable.Value("Parameter3"))				    
+				    End If
+				   
+				    LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIGDS026_Driver Service","Action1",oneIteration					
+			Case "BIDRS005_ROUTE MAINTENANCE"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+'				If Environment.Value("returncode") = 1 Then	
+					'msgbox DataTable.Value("Parameter0")
+				  	If DataTable.Value("Parameter0")<>"" Then
+				    	Environment.Value("Purpose") = Trim(DataTable.Value("Parameter0"))		    				    	
+				    End If
+				    
+				    'If DataTable.Value("Parameter1")<>"" Then
+				    	Environment.Value("RouteNumber") = Trim(DataTable.Value("Parameter1"))				    
+				    'End If
+				    
+				    If DataTable.Value("Parameter2")<>"" Then
+				    	Environment.Value("Format") = Trim(DataTable.Value("Parameter2"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter3")<>"" Then
+				    	Environment.Value("RouteType") = Trim(DataTable.Value("Parameter3"))				    
+				    End If
+				    
+				    If DataTable.Value("Parameter4")<>"" Then
+				    	Environment.Value("RevenueDist") = Trim(DataTable.Value("Parameter4"))				    
+				    End If
+				    
+				     If DataTable.Value("Parameter5")<>"" Then
+				    	Environment.Value("DistanceUnitMeasure") = Trim(DataTable.Value("Parameter5"))				    
+				    End If
+				    
+				     If DataTable.Value("Parameter6")<>"" Then
+				    	Environment.Value("WeightUnitMeasure") = Trim(DataTable.Value("Parameter6"))				    
+				    End If
+				   
+				    LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDRS005_ROUTE MAINTENANCE","Action1",oneIteration					
+'				End If 
+			Case "BIDRS003_SCHEDULING MAINTENANCE"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+				LoadAndRunAction Environment.Value("RootPath") & "TestScript\BIDRS003_SCHEDULING MAINTENANCE","Action1",oneIteration					
+			Case "AAE"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+				 If DataTable.Value("Parameter1")<>"" Then
+				    Environment.Value("QuoteNum") = Trim(DataTable.Value("Parameter1"))				    
+				 End If
+				 If DataTable.Value("Parameter2")<>"" Then
+				    Environment.Value("LOB") = Trim(DataTable.Value("Parameter2"))				    
+				 End If
+				 If DataTable.Value("Parameter3")<>"" Then
+				    Environment.Value("UName") = Trim(DataTable.Value("Parameter3"))				    
+				 End If
+				 If DataTable.Value("Parameter4")<>"" Then
+				    Environment.Value("Password") = Trim(DataTable.Value("Parameter4"))				    
+				 End If
+				 LoadAndRunAction Environment.Value("RootPath") & "TestScript\E2EDriver","Action1",oneIteration	
+			Case "RQHDG1_PRINT ROUTE SHEETS"
+				If Environment.Value("returncode") = 0 Then
+					Call func_reportStatus("Fail","Execution Stopped","Execution Stopped and Unable to Proceed to " & str_currentFunc)
+					ExitAction
+				End If
+				 If DataTable.Value("Parameter1")<>"" Then
+				    Environment.Value("Route") = Trim(DataTable.Value("Parameter1"))				    
+				 End If
+				 If DataTable.Value("Parameter2")<>"" Then
+				    Environment.Value("PrintFormat") = Trim(DataTable.Value("Parameter2"))				    
+				 End If
+				 If DataTable.Value("Parameter3")<>"" Then
+				    Environment.Value("ActiveRouteDate") = Trim(DataTable.Value("Parameter3"))				    
+				 End If
+				 
+				 LoadAndRunAction Environment.Value("RootPath") & "TestScript\RQHDG1_PRINT ROUTE SHEETS","Action1",oneIteration				
 		End Select 'Select Case UCASE(TRIM(str_currentFunc))
 	Next 'For int_currentRow = 1 To int_rowCount
 	
@@ -742,4 +922,3 @@ Services.EndTransaction "StartRun"
 'End Function
 
 
- 

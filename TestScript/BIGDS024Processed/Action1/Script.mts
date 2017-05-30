@@ -2,6 +2,7 @@
 Dim int_rowCount, int_CSPOcount
 Dim str_CSPONum, str_selection
 
+If False Then
 Call func_setScreenProperty("BIGDS024Processed")
 
 If (TEWindow("InfoProWindow").TEScreen("BIGDS024Processed").TEField("UnscheduledRequests").Exist(5)) Then
@@ -35,3 +36,15 @@ Else
 	Call func_reportFailureScreenshot()
 	Call func_reportStatus("FAIL", "Unscheduled Request", "Unscheduled Request Screen (BIGDS024Processed) does not exist")
 End If 'If (TEWindow("InfoProWindow").TEScreen("BIGDS024Processed").TEField("UnscheduledRequest").Exist(5)) Then
+End If
+
+
+Environment.Value("AccountNumber") = func_SetToMaxFieldLength(Environment.Value("AccountNumber"),7)
+Environment.Value("DivisionNumber") = func_SetToMaxFieldLength(Environment.Value("DivisionNumber"),5)
+Call func_reportStatus("Done","Account Number",Environment.Value("AccountNumber"))
+Call func_reportStatus("Done","Division Number",Environment.Value("DivisionNumber"))
+Call func_reportStatus("Done","UR Number",Environment.Value("URNumber"))
+strQuery = "SELECT * FROM CUFILE.BIPUR WHERE URACCT = '" & Environment.Value("AccountNumber") & "' AND URCOMP ='" & Environment.Value("DivisionNumber") & "' and URURNO = '" & Environment.Value("URNumber") & "' and URSCHD='S'"
+If func_GetUniqueRecordFromDBData("SYS01","darapch","Sachin8781",strQuery) Then
+	Call func_reportStatus("Pass","Search the Scheduled Request","The Scheduled Request has been searched successfully")
+End If

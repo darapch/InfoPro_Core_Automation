@@ -1,5 +1,4 @@
 ﻿<Properties>
-  <WatchEntry0 value="Environment.Value(&quot;Route&quot;)" />
-  <WatchEntry1 value="intStatusFieldID" />
-  <WatchEntry2 value="Environment.Value(&quot;NavigateBackTOSelection&quot;)" />
+  <WatchEntry0 value="strLoadUpdateTimeStart_2" />
+  <WatchEntry1 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIGDS001&quot;).TeField(&quot;LoadUpdateWindow&quot;).Exist(2)" />
 </Properties>

@@ -1,5 +1,5 @@
 ﻿
-intSpaces = 5-Len(Environment.Value("Site"))
+intSpaces = 5-Len(Trim(Environment.Value("Site")))
 Environment.Value("Site") = Space(intSpaces) & Environment.Value("Site")
 
 If VerifyScreenHeader("SITE SELECTION SCREEN") Then

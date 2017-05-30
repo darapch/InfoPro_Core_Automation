@@ -1,4 +1,6 @@
 ﻿
+
+RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
 If VerifyScreenHeader("ACCOUNT INFORMATION") Then
 	
 	If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Protected:=True","attached text:=" & Environment.Value("AccountNumber") &  ".*protected.*").exist(4) Then
@@ -57,16 +59,16 @@ Function func_AccountAddressValidation()
 		Call func_reportStatus("Fail", "Delete Account Name Value", "Error message 'NAME REQUIRED' is displayed")
 	End If
 	
-	
-	Call func_EnterValueInTeField("BIDSC001_AccountInformation","Street Number","9999")
+	Environment.Value("StreetNumber") = "9999"
+	Call func_EnterValueInTeField("BIDSC001_AccountInformation","Street Number",Environment.Value("StreetNumber"))
 	Call func_SendKey("ENTER")
 	If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Address not on streets").Exist(2) Then
-		Call func_reportStatus("Pass", "Change the street number to '9999'", "An error message is displayed, Address not on street")
+		Call func_reportStatus("Pass", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "An error message is displayed, Address not on street")
 		Call func_EnterValueInTeField("BIDSC001_AccountInformation","RESUME","R")
 		Call func_SendKey("ENTER")
 		Call func_SendKey("F12")
-		If GetAndVerifyTeFieldValue("BIDSC001_AccountInformation","Street Number","9999") Then
-			Call func_reportStatus("Pass", "Change the street number to '9999'", "Street Number Changed to '9999'")	
+		If GetAndVerifyTeFieldValue("BIDSC001_AccountInformation","Street Number",Environment.Value("StreetNumber")) Then
+			Call func_reportStatus("Pass", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "Street Number Changed to '" & Environment.Value("StreetNumber") & "'")	
 			TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Street Number").Set ""
 			Call func_SendKey("ENTER")
 			If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Street Not found in City").Exist(2) Then
@@ -85,14 +87,14 @@ Function func_AccountAddressValidation()
 				Call func_reportStatus("Fail", "Delete the street name", "The error message 'street not found in city' is NOT displayed")
 			End If	
 		Else
-			Call func_reportStatus("Fail", "Change the street number to '9999'", "Street Number is NOT Changed to '9999'")
+			Call func_reportStatus("Fail", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "Street Number is NOT Changed to '" & Environment.Value("StreetNumber") & "'")
 			
 		End If
 	Else
-		Call func_reportStatus("Fail", "Change the street number to '9999'", "An error message 'Address not on street' is not displayed")
+		Call func_reportStatus("Fail", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "An error message 'Address not on street' is not displayed")
 	End If
 	
-	'Environment.Value("City") = "ROSEMES"
+	Environment.Value("City") = "ROSEMES"
 	Call func_EnterValueInTeField("BIDSC001_AccountInformation","City",Environment.Value("City"))
 	Call func_SendKey("ENTER")
 	intCorrectedAddrFieldID = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Corrected Address").GetROProperty("field id")
@@ -122,16 +124,16 @@ Function func_AccountAddressValidation()
 	End If
 	
 	
-	
-	Call func_EnterValueInTeField("BIDSC001_AccountInformation","Street Name","abcd")
+	Environment.Value("StreetName") = "MYSTREET"
+	Call func_EnterValueInTeField("BIDSC001_AccountInformation","Street Name",Environment.Value("StreetName"))
 	Call func_SendKey("ENTER")
 	If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Street Name Not Found").Exist(2) Then
-		Call func_reportStatus("Pass", "Change the street number to 'abcd'", "An error message is displayed, Address not on street")
+		Call func_reportStatus("Pass", "Change the street number to '" & Environment.Value("StreetName") & "'", "An error message is displayed, Address not on street")
 		Call func_EnterValueInTeField("BIDSC001_AccountInformation","RESUME","R")
 		Call func_SendKey("ENTER")
 		Call func_SendKey("F12")
-		If GetAndVerifyTeFieldValue("BIDSC001_AccountInformation","Street Name","ABCD") Then
-			Call func_reportStatus("Pass", "Change the Street Name to 'ABCD'", "Street Name Changed to 'ABCD'")	
+		If GetAndVerifyTeFieldValue("BIDSC001_AccountInformation","Street Name",Environment.Value("StreetName")) Then
+			Call func_reportStatus("Pass", "Change the Street Name to '" & Environment.Value("StreetName") & "'", "Street Name Changed to '" & Environment.Value("StreetName") & "'")	
 			TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Street Name").Set ""
 			Call func_SendKey("ENTER")	
 			If TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("ADDRESS Required").Exist(2) Then
@@ -148,11 +150,11 @@ Function func_AccountAddressValidation()
 				Call func_reportStatus("Fail", "Delete the Street Name", "Error message 'Address REQUIRED' is NOT displayed")
 			End If
 		Else
-			Call func_reportStatus("Fail", "Change the Street Name to 'ABCD'", "Street Name is NOT Changed to 'ABCD'")
+			Call func_reportStatus("Fail", "Change the Street Name to '" & Environment.Value("StreetName") & "'", "Street Name is NOT Changed to '" & Environment.Value("StreetName") & "'")
 			
 		End If
 	Else
-		Call func_reportStatus("Fail", "Change the Street Name to 'ABCD'", "An error message 'Address not on street' is not displayed")
+		Call func_reportStatus("Fail", "Change the Street Name to '" & Environment.Value("StreetName") & "'", "An error message 'Address not on street' is not displayed")
 	End If
 	
 	
@@ -161,7 +163,7 @@ Function func_AccountAddressValidation()
 	
 	
 	
-	'Environment.Value("State") = "FL"
+	Environment.Value("State") = "FL"
 	Call func_EnterValueInTeField("BIDSC001_AccountInformation","State",Environment.Value("State"))
 	Call func_SendKey("ENTER")
 	intCorrectedAddrFieldID = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Corrected Address").GetROProperty("field id")
@@ -192,7 +194,7 @@ Function func_AccountAddressValidation()
 	
 	
 	
-	'Environment.Value("ZIP") = "91770-1111"
+	Environment.Value("ZIP") = "91770-1111"
 	Call func_EnterValueInTeField("BIDSC001_AccountInformation","ZipCode",Environment.Value("ZIP"))
 	Call func_SendKey("ENTER")
 	intCorrectedAddrFieldID = TeWindow("InfoProWindow").TeScreen("BIDSC001_AccountInformation").TeField("Corrected Address").GetROProperty("field id")

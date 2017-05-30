@@ -1,1 +1,5 @@
-﻿<Properties />
+﻿<Properties>
+  <WatchEntry0 value="intFMTs" />
+  <WatchEntry1 value="Environment.Value(&quot;Date&quot;)" />
+  <WatchEntry2 value="Environment.Value(&quot;Status&quot;)" />
+</Properties>

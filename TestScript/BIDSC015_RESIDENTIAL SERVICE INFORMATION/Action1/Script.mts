@@ -1,12 +1,14 @@
 ﻿
 
+Environment.Value("ContainerGroup") = "1"
+Environment.Value("Site") = "00003"
+Environment.Value("Purpose") = "SITEADDRESSVALIDATION"
+Environment.Value("RootPath") = "C:\Users\darapch\Desktop\Automation\InfoPro_Automation\"
+
+RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
 If VerifyScreenHeader("RESIDENTIAL SERVICE INFORMATION")=False Then
 	Call func_SetReturnCodeToZero()
 End If
-'Environment.Value("ContainerGroup") = "1"
-'Environment.Value("Site") = "00001"
-'Environment.Value("Purpose") = "SITEADDRESSVALIDATION"
-
 
 Environment.Value("ContainerGroup") = func_SetToMaxFieldLength(Environment.Value("ContainerGroup"),2)
 
@@ -39,8 +41,8 @@ Function VerifySiteAddressValidation()
 	
 	
 	
-	'Environment.Value("SiteName") = "ZZZZ"
-	'Environment.Value("SiteCity") = "LOSANGELES"
+	Environment.Value("SiteName") = "ZZZZ"
+	Environment.Value("SiteCity") = "LOSANGELES"
 	'
 	'
 	'Environment.Value("SiteNumber") = "00001"
@@ -70,23 +72,30 @@ Function VerifySiteAddressValidation()
 			End If
 		Else
 			Call func_reportStatus("Fail","Delete the Site Name", "ERROR 'Site Name must be entered' is NOT displayed")	
-			ExitTest		
+			Call func_SetReturnCodeToZero()		
 		End If
 	Else
 		Call func_reportStatus("Pass","Change the Site Name from '" & strOriginalSiteName & "' to '" & Environment.Value("SiteName") & "'", "Site Name is NOT changed to " & Environment.Value("SiteName"))			
 	End If
 	
+
 	
-	
-	Call func_EnterValueInTeField("BIDSC015_ResidentialServiceInformation","SiteStreetNumber","9999")
+	Environment.Value("StreetNumber") = "9999"
+	Call func_EnterValueInTeField("BIDSC015_ResidentialServiceInformation","SiteStreetNumber",Environment.Value("StreetNumber"))
 	Call func_SendKey("ENTER")
 	If TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("Address not on streets").Exist(2) Then
-		Call func_reportStatus("Pass", "Change the street number to '9999'", "An error message is displayed, Address not on street")
+		If TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("GEOCodeError").Exist(2) Then
+			strGEOCodeError = TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("GEOCodeError").Text
+			Call func_reportStatus("Fail","GEO-CODE Error", strGEOCodeError)
+			Call func_reportStatus("Fail","Re-Execute the Test Suit/Case","")
+			ExitTest	
+		End If
+		Call func_reportStatus("Pass", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "An error message is displayed, Address not on street")
 		Call func_EnterValueInTeField("BIDSC015_ResidentialServiceInformation","RESUME","R")
 		Call func_SendKey("ENTER")		
 		Call CallExternalAction("BIDSC015_CONTAINER SELECTION SCREEN","Action1")
-		If GetAndVerifyTeFieldValue("BIDSC015_ResidentialServiceInformation","SiteStreetNumber","9999") Then
-			Call func_reportStatus("Pass", "Change the street number to '9999'", "Street Number Changed to '9999'")	
+		If GetAndVerifyTeFieldValue("BIDSC015_ResidentialServiceInformation","SiteStreetNumber",Environment.Value("StreetNumber")) Then
+			Call func_reportStatus("Pass", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "Street Number Changed to '" & Environment.Value("StreetNumber") & "'")	
 			TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("SiteStreetNumber").Set ""
 			Call func_SendKey("ENTER")
 			If TeWindow("InfoProWindow").TeScreen("BIDSC015_ResidentialServiceInformation").TeField("StreetNotFoundInCity").Exist(2) Then
@@ -106,13 +115,14 @@ Function VerifySiteAddressValidation()
 				Call func_reportStatus("Fail", "Delete the street name", "The error message 'street not found in city (finance number)' is NOT displayed")
 			End If	
 		Else
-			Call func_reportStatus("Fail", "Change the street number to '9999'", "Street Number is NOT Changed to '9999'")
+			Call func_reportStatus("Fail", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "Street Number is NOT Changed to '" & Environment.Value("StreetNumber") & "'")
 			
 		End If
 	Else
-		Call func_reportStatus("Fail", "Change the street number to '9999'", "An error message 'Address not on street' is not displayed")
+		Call func_reportStatus("Fail", "Change the street number to '" & Environment.Value("StreetNumber") & "'", "An error message 'Address not on street' is not displayed")
 	End If
 	
+'		
 	
 	
 	Call func_EnterValueInTeField("BIDSC015_ResidentialServiceInformation","SiteCity",Environment.Value("SiteCity"))

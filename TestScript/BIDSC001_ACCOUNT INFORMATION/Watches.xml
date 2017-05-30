@@ -1,6 +1,13 @@
 ﻿<Properties>
-  <WatchEntry0 value="strCurrentValue" />
-  <WatchEntry1 value="strField" />
-  <WatchEntry2 value="strToBeCorrectedCity" />
-  <WatchEntry3 value="strCurrentValue" />
+  <WatchEntry0 value="GetAndVerifyTeFieldValue(&quot;BIDSC001_AccountInformation&quot;,&quot;City&quot;,strOrigCity)" />
+  <WatchEntry1 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC001_AccountInformation&quot;).TeField(&quot;Street Name Not Found&quot;).Exist(2)" />
+  <WatchEntry10 value="strToBeCorrectedZIP" />
+  <WatchEntry2 value="strOrigStreetName" />
+  <WatchEntry3 value="Environment.Value(&quot;State&quot;)" />
+  <WatchEntry4 value="strOrigStreetName" />
+  <WatchEntry5 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC001_AccountInformation&quot;).TeField(&quot;Corrected Address&quot;).GetROProperty(&quot;field id&quot;)" />
+  <WatchEntry6 value="strToBeCorrectedState" />
+  <WatchEntry7 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC001_AccountInformation&quot;).TeField(&quot;EnterStateProvince&quot;).Exist(2)" />
+  <WatchEntry8 value="Environment.Value(&quot;ZIP&quot;)" />
+  <WatchEntry9 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;BIDSC001_AccountInformation&quot;).TeField(&quot;Corrected Address&quot;).GetROProperty(&quot;field id&quot;)" />
 </Properties>

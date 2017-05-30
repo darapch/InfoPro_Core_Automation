@@ -1,30 +1,47 @@
-﻿
+﻿On Error Resume Next
+RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
+On Error GoTo 0
 'Environment.Value("AccountNumber") = "1127418"
 
 If VerifyScreenHeader("Customer  Service")=False Then	
 	Call func_SetReturnCodeToZero()
 End If
 
+Call func_EnterValueInTeField("BIGDS021_CustomerService","Search Open Accts Only","Y")	
+Call func_sendKey("ENTER")
 If Environment.Value("AccountNumber")="" Then
-	Call func_EnterValueInTeField("BIGDS021_CustomerService","Search Open Accts Only","Y")	
-	Call func_EnterValueInTeField("BIGDS021_CustomerService","SiteNameField","RESIDENTIAL")
+	
+	Call func_EnterValueInTeField("BIGDS021_CustomerService","SiteNameField","TEST")
 	Call func_sendKey("ENTER")
 	wait(3)
 	Environment.Value("AccountNumber") = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=642").GetROProperty("text")
-	Call func_SetToMaxFieldLength(Environment.Value("AccountNumber"),7)
-	intAccountFieldID = 642
-Else
-	Call func_EnterValueInTeField("BIGDS021_CustomerService","AccountNumberHeader",Environment.Value("AccountNumber"))
-	Call func_SendKey("ENTER")
+	Environment.Value("AccountNumber") = func_SetToMaxFieldLength(Environment.Value("AccountNumber"),7)
+	Call func_reportStatus("Pass","Account Number","The Account Number is " & Environment.Value("AccountNumber"))
 	
-	If TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("attached text:=" & Environment.Value("AccountNumber") & ".*protected.*").Exist(5) Then
-		intAccountFieldID = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("attached text:=" & Environment.Value("AccountNumber") & ".*protected.*").GetROProperty("field id")
-		Call func_reportStatus("Pass", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is displayed at 'Custmer Service' Screen")
-	Else
-		Call func_reportStatus("Fail", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is NOT displayed at 'Custmer Service' Screen")
-		'ExitTest
-		Call func_SetReturnCodeToZero()
-	End If
+Else
+	Environment.Value("AccountNumber") = func_SetToMaxFieldLength(Environment.Value("AccountNumber"),7)
+'	Call func_EnterValueInTeField("BIGDS021_CustomerService","AccountNumberHeader",Environment.Value("AccountNumber"))
+'	Call func_SendKey("ENTER")
+'	wait(2)
+'	intAccountFieldID = func_SearchItemInGrid(Environment.Value("AccountNumber"),0)
+'	If intAccountFieldID>0 Then
+'		Call func_reportStatus("Pass", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is displayed at 'Custmer Service' Screen")
+'	Else
+'		Call func_reportStatus("Fail", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is NOT displayed at 'Custmer Service' Screen")
+'		Call func_SetReturnCodeToZero()
+'	End If
+	
+End If
+
+Call func_EnterValueInTeField("BIGDS021_CustomerService","AccountNumberHeader",Environment.Value("AccountNumber"))
+Call func_SendKey("ENTER")
+wait(2)
+intAccountFieldID = func_SearchItemInGrid(Environment.Value("AccountNumber"),0)
+If intAccountFieldID>0 Then
+	Call func_reportStatus("Pass", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is displayed at 'Custmer Service' Screen")
+Else
+	Call func_reportStatus("Fail", "Verify Account","The Account Number " & Environment.Value("AccountNumber") & " is NOT displayed at 'Custmer Service' Screen")
+	Call func_SetReturnCodeToZero()
 End If
 
 intSiteNoFieldID = intAccountFieldID+8
@@ -42,12 +59,14 @@ strStreetAddr = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").T
 TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intSelFieldID).Set "1"
 Call func_SendKey("ENTER")
 
-TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("attached text:=" & Environment.Value("AccountNumber") & ".*protected.*").SetCursorPos
+TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intAccountFieldID).SetCursorPos
 Call func_SendKey("TAB")
 TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").SendKey "1"
 Call func_SendKey("ENTER")
 
-
+intAccountFieldID = 642
+Environment.Value("DivisionNumber") = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("DivisionNumber").GetROProperty("text")
+Environment.Value("DivisionNumber") = func_SetToMaxFieldLength(Environment.Value("DivisionNumber"),5)
 strSiteNumHeader = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("SiteNumHeader").GetROProperty("text")
 Environment.Value("Site") = strSiteNo
 strSiteNameAddressHeader = TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("SiteNameAddressHeader").GetROProperty("text")
@@ -71,8 +90,8 @@ Else
 	Call func_reportStatus("Fail", "Verify Populated Account  Name","The Populated Account Name : " & strSiteNameHeader & ". The Site Address in the Grid : " & strSiteName)
 End If
 
-TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intSelFieldID).SetCursorPos
-TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intSelFieldID).Set "1"
+'TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intSelFieldID).SetCursorPos
+'TeWindow("InfoProWindow").TeScreen("BIGDS021_CustomerService").TeField("field id:=" & intSelFieldID).Set "1"
 
 
 

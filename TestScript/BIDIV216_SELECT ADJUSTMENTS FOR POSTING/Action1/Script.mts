@@ -1,6 +1,6 @@
 ﻿
 
-
+RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
 
 
 If TeWindow("InfoProWindow").TeScreen("BIDIV216_SelectAdjustmentsForPosting").TeField("SELECT ADJUSTMENTS FOR POSTING").Exist(5) Then

@@ -1,4 +1,7 @@
 ﻿<Properties>
-  <WatchEntry0 value="Environment.Value(&quot;returncode&quot;)" />
-  <WatchEntry1 value="Environment.Value(&quot;Result&quot;)" />
+  <WatchEntry0 value="strFieldName" />
+  <WatchEntry1 value="Trim(Environment.Value(&quot;AccountNumber&quot;))" />
+  <WatchEntry2 value="str_screenName" />
+  <WatchEntry3 value="strField" />
+  <WatchEntry4 value="str_key" />
 </Properties>

@@ -1,4 +1,6 @@
-﻿If VerifyScreenHeader("SITE INFORMATION") Then	
+﻿RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
+
+If VerifyScreenHeader("SITE INFORMATION") Then	
 	Environment.Value("Site") = func_SetToMaxFieldLength(Environment.Value("Site"),5)
 	If GetAndVerifyTeFieldValue("BIDSC002_SITE INFORMATION","Site Number",Environment.Value("Site")) Then
 		Call func_reportStatus("Pass","Verify Site '" & Environment.Value("Site") & "'","Site '" & Environment.Value("Site") & "' is displayed")

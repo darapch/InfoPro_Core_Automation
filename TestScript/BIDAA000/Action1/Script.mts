@@ -1,7 +1,7 @@
 ﻿Dim obj_LabelProperty
 Dim obj_WShell
-
-Call func_setScreenProperty("BIDAA000")
+'RepositoriesCollection.Add Environment.Value("RootPath") & "ObjectRepository\InforProOR.tsr"
+'Call func_setScreenProperty("BIDAA000")
 
 If TEWindow("InfoProWindow").TEScreen("BIDAA000").TEField("AccountReview").Exist(5) Then
 	Call func_reportStatus("PASS", "Account Review screen exists", "")

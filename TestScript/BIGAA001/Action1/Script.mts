@@ -17,7 +17,7 @@ str_chargeEnviroFee = "TOTAL_ERF"
 str_chargeFuelFee = "TOTAL_FRF"
 str_compStringPrintFee = str_chargeEnviroFee&":"&str_chargeFuelFee
 
-Call func_setScreenProperty("BIGAA001")
+'Call func_setScreenProperty("BIGAA001")
 
 If (TEWindow("InfoProWindow").TEScreen("BIGAA001").TEField("CustomerContactInfo").Exist(5)) Then
 	Call func_SendKey("F12")

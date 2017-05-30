@@ -8,6 +8,7 @@ Set objExcelDB = CreateObject("ADODB.Connection")
 objExcelDB.Open "Driver={Microsoft Excel Driver (*.xls)};DBQ=" & Environment.Value("RootPath") & "DataSheet\ControlSheet.xls"
 Set objRecordSetSuite = CreateObject("ADODB.RecordSet")
 objRecordSetSuite.Open "select * from [ExecutionFlow$] where Execute='Y'",objExcelDB
+'objRecordSetSuite.Open "select * from [ExecutionFlow$] where Execute='Y' and TestSuiteName='" & Environment("ExecutionType") & "'",objExcelDB
 intTSRecords = -1
 
 
@@ -52,8 +53,11 @@ For intTestSuite = 0 To UBound(arrTestSuits)
 	For intTestCase = 0 To UBound(arrTestCases)		
 		Environment.Value("Result") = ""
 		Environment.Value("CurrentTestDataSheet") = arrTestCases(intTestCase)
+		
 		LoadAndRunAction Environment.Value("RootPath") & "TestScript\Driver_Repaired","Action1",oneIteration
+		
 		Environment.Value("FetchAccDetailsFromDB")=False
+		
 		Environment.Value("returncode") = 1
 		If InStr(UCase(Environment.Value("Result")),"FAIL")>0 Then
 			Call AddTestSetRow(Environment.Value("CurrentTestDataSheet"),"Fail",Environment.Value("HTMLResultFilePath"))
@@ -63,3 +67,8 @@ For intTestSuite = 0 To UBound(arrTestSuits)
 	Next
 	'END : To Iterate the Test Cases
 Next
+
+
+
+
+

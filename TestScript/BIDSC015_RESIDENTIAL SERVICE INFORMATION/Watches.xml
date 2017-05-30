@@ -2,4 +2,7 @@
   <WatchEntry0 value="Environment.Value(&quot;RootPath&quot;) &amp; &quot;TestScript\BIDSC015_ResidentialServiceInformation&quot;" />
   <WatchEntry1 value="Environment.Value(&quot;RootPath&quot;) &amp; &quot;TestScript\BIDSC015_CONTAINER SELECTION SCREEN&quot;" />
   <WatchEntry2 value="strExpValue" />
+  <WatchEntry3 value="Environment.Value(&quot;Site&quot;)" />
+  <WatchEntry4 value="Environment.Value(&quot;ContainerGroup&quot;)" />
+  <WatchEntry5 value="strExpValue" />
 </Properties>

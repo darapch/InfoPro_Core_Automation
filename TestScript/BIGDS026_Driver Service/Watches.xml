@@ -1,5 +1,6 @@
 ﻿<Properties>
-  <WatchEntry0 value="intQty" />
-  <WatchEntry1 value="objQtyField.Exist(1)" />
-  <WatchEntry2 value="str_key" />
+  <WatchEntry0 value="strHeaderText" />
+  <WatchEntry1 value="TeWindow(&quot;InfoProWindow&quot;).TeScreen(&quot;column count:=80&quot;).Exist(3)" />
+  <WatchEntry2 value="Environment.Value(&quot;Route&quot;)" />
+  <WatchEntry3 value="str_key" />
 </Properties>
